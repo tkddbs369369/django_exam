@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3"> <!-- container 클래스의 자식 클래스가 my-3인 css를 적용, my-3 : 상하 마진값 3 -->
+    <table class="table">  <!-- table 클래스에 해당하는 css를 적용 -->
+        <thead>
+        <tr class="thead-dark"> <!-- thead-dark 클래스에 해당하는 css를 적용 -->
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if question_list %} <!-- 질문 목록이 있으면 -->
+        {% for question in question_list %} <!-- 질문 목록에서 1개의 질문을 question변수에 가지고 옴 -->
+        <tr>
+          <td>{{ forloop.counter }}</td> <!-- for문의 순서대로 1부터 출력 -->
+          <td>
+              <a href="{% url 'pybo:detail' question.id %}">{{question.subject}}</a> <!-- 질문 제목을 출력하고 url 매핑 name이 detail인 url로 하이퍼링크 연결 -->
+          </td>
+          <td>{{question.create_date}}</td> <!-- 질문 생성 날짜를 출력 -->
+        </tr>
+        {% endfor %}
+        {% else %} <!-- 질문이 없을 경우 -->
+        <tr>
+            <td colspan="3">질문이 없습니다.</td> <!-- 3개의 열을 합치고 질문이 없습니다. 를 출력 -->
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <a href="{% url 'pybo:question_create' %}" class="btn btn-primary"> 질문 등록하기 </a> <!-- 질문 등록 url을 'pybo:question_create' 추가하고 버튼에 부트스트랩 클래스를 지정함  -->
+</div>
+{% endblock %}
