@@ -1,5 +1,5 @@
 from django import forms
-from pybo.models import Question
+from pybo.models import Question, Answer
 
 class QuestionForm(forms.ModelForm): # 장고 폼은 2개의 폼으로 구분되는데 forms.Form을 상속받으면 폼, forms.ModelForm을 상속받으면 모델 폼이라 함
     class Meta: # 장고 모델폼은 내부 클래스로 Meta 클래스를 반드시 가져야 함, 모델과 모델 필드를 작성해야 함
@@ -8,5 +8,13 @@ class QuestionForm(forms.ModelForm): # 장고 폼은 2개의 폼으로 구분되
         labels = {
             'subject': '제목',
             'content': '내용',
+        }
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['content']
+        labels = {
+            'content': '답변내용',
         }
 
